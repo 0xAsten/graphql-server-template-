@@ -37,6 +37,17 @@ const resolvers = {
       db.games = db.games.filter((game) => game.id !== id)
       return deletedGame
     },
+    updateGame: (_: any, { id, game }) => {
+      let gameObj = db.games.find((game) => game.id === id)
+      let updatedGame = { ...gameObj, ...game }
+      db.games = db.games.map((game) => {
+        if (game.id === id) {
+          return updatedGame
+        }
+        return game
+      })
+      return updatedGame
+    },
   },
 }
 
